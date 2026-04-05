@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptPower Elite - Empresa</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:#0b0b0b;color:#f5f5dc}
+
+header{
+text-align:center;
+padding:70px 20px;
+background:linear-gradient(180deg,#000,#111);
+}
+
+h1{color:#d4af37;font-size:45px}
+
+p{color:#cfc7a1;margin-top:10px}
+
+.btn{
+padding:14px 30px;
+background:linear-gradient(90deg,#d4af37,#f1d27a);
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+.btn:hover{transform:scale(1.1);box-shadow:0 0 20px gold}
+
+.stats{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:30px;
+}
+
+.stat{
+background:#111;
+padding:15px 25px;
+border-radius:15px;
+border:1px solid #d4af37;
+}
+
+.container{
+padding:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.card{
+background:#111;
+border:1px solid #d4af37;
+border-radius:20px;
+padding:25px;
+text-align:center;
+}
+
+.lock{color:red;font-size:12px}
+
+.search{
+width:90%;
+margin:20px auto;
+display:block;
+padding:12px;
+border-radius:10px;
+border:none;
+}
+
+.popup{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#111;
+padding:20px;
+border-radius:15px;
+display:none;
+width:320px;
+border:1px solid gold;
+}
+
+.testimonials{
+padding:50px;
+text-align:center;
+}
+
+.testimonials h2{color:gold;margin-bottom:20px}
+
+.testimonial{
+background:#111;
+padding:20px;
+margin:10px auto;
+border-radius:15px;
+border:1px solid #d4af37;
+max-width:400px;
+}
+
+footer{text-align:center;padding:20px;color:#777}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>💎 PromptPower Elite</h1>
+<p>Transforme IA em dinheiro todos os dias</p>
+<button class="btn" onclick="comprar()">Acessar Agora</button>
+
+<div class="stats">
+<div class="stat">+1.247 usuários</div>
+<div class="stat">+300 prompts</div>
+<div class="stat">+R$ ganhos por alunos</div>
+</div>
+
+</header>
+
+<input class="search" placeholder="Buscar prompts..." onkeyup="buscar(this.value)">
+
+<section class="container" id="lista"></section>
+
+<section class="testimonials">
+<h2>Resultados de usuários</h2>
+<div class="testimonial">"Fiz minha primeira venda em 2 dias"</div>
+<div class="testimonial">"Esses prompts são absurdos"</div>
+<div class="testimonial">"Vale muito mais que o preço"</div>
+</section>
+
+<div id="popup" class="popup">
+<p id="texto"></p>
+<button class="btn" onclick="copiar()">Copiar</button>
+<button class="btn" onclick="fechar()">Fechar</button>
+</div>
+
+<footer>
+<p>© PromptPower Elite</p>
+</footer>
+
+<script>
+let vip=false;
+
+function comprar(){
+window.location.href="SEU LINK AQUI";
+}
+
+const prompts=[
+{cat:"Marketing",texto:"Crie um funil completo para Instagram"},
+{cat:"TikTok",texto:"Crie vídeos virais com alto engajamento"},
+{cat:"Copy",texto:"Copy AIDA para vendas online",vip:true},
+{cat:"Dinheiro",texto:"10 formas de ganhar dinheiro com IA",vip:true},
+{cat:"Negócios",texto:"Ideias de negócios lucrativos"},
+{cat:"Conteúdo",texto:"7 ideias virais para redes sociais"}
+];
+
+function render(lista){
+let html="";
+lista.forEach(p=>{
+html+=`<div class="card">
+<h3>${p.cat}</h3>
+${p.vip?'<p class="lock">VIP</p>':''}
+<button class="btn" onclick="ver('${p.texto}',${p.vip||false})">Ver</button>
+</div>`;
+});
+
+document.getElementById("lista").innerHTML=html;
+}
+
+function ver(texto,isVip){
+if(isVip && !vip){alert("Desbloqueie o VIP");return}
+
+document.getElementById("texto").innerText=texto;
+document.getElementById("popup").style.display="block";
+}
+
+function fechar(){document.getElementById("popup").style.display="none"}
+
+function copiar(){navigator.clipboard.writeText(document.getElementById("texto").innerText);alert("Copiado")}
+
+function buscar(valor){
+let filtrado=prompts.filter(p=>p.texto.toLowerCase().includes(valor.toLowerCase()));
+render(filtrado);
+}
+
+render(prompts);
+</script>
+
+</body>
+</html>
